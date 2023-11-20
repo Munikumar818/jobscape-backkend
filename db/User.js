@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcryptjs = require("bcryptjs");
 require("mongoose-type-email");
 
 let schema = new mongoose.Schema(
@@ -32,7 +32,7 @@ schema.pre("save", function (next) {
     return next();
   }
 
-  bcrypt.hash(user.password, 10, (err, hash) => {
+  bcryptjsjs.hash(user.password, 10, (err, hash) => {
     if (err) {
       return next(err);
     }
@@ -46,7 +46,7 @@ schema.methods.login = function (password) {
   let user = this;
 
   return new Promise((resolve, reject) => {
-    bcrypt.compare(password, user.password, (err, result) => {
+    bcryptjs.compare(password, user.password, (err, result) => {
       if (err) {
         reject(err);
       }
